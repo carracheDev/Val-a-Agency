@@ -17,7 +17,7 @@ const socialLinks = [
   { icon: Instagram, href: "https://instagram.com/valeaagency", label: "Instagram" },
   { icon: Twitter, href: "https://twitter.com/valeaagency", label: "Twitter" },
   { icon: MessageCircle, href: "https://wa.me/1234567890", label: "WhatsApp" },
-  { icon: Mail, href: "mailto:contact@valeaagency.com", label: "Email" },
+  { icon: Mail, href: "mailto:valeaagency@gmail.com", label: "Email" },
 ];
 
 export function Footer() {
@@ -44,8 +44,8 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-muted-foreground" />
-                <a href="mailto:contact@valeaagency.com" className="text-muted-foreground hover:text-foreground transition-colors">
-                  contact@valeaagency.com
+                <a href="mailto:valeaagency@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
+                  valeaagency@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
