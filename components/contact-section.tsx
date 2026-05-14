@@ -2,7 +2,6 @@
 
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Loader2, CheckCircle, AlertCircle, Mail, User, MessageSquare } from "lucide-react";
@@ -14,6 +13,8 @@ interface FormState {
 }
 
 type Status = "idle" | "loading" | "success" | "error";
+
+const formspreeEndpoint = "https://formspree.io/f/mlgzydyp";
 
 export function ContactSection() {
   const [form, setForm] = useState<FormState>({
@@ -43,22 +44,29 @@ export function ContactSection() {
     setStatus("loading");
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
-        {
-          from_name: form.name,
-          from_email: form.email,
-          message: form.message,
+      const response = await fetch(formspreeEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
-      );
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Formspree request failed");
+      }
 
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
 
       setTimeout(() => setStatus("idle"), 5000);
-    } catch {
+    } catch (error) {
+      console.error("Formspree send error:", error);
       setStatus("error");
       setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
       setTimeout(() => setStatus("idle"), 5000);
