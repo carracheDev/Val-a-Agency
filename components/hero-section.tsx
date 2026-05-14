@@ -206,6 +206,16 @@ export function HeroSection() {
               size="lg"
               className="px-8 py-6 text-base border-accent/50 hover:bg-accent/10 hover:border-accent transition-all duration-300"
             >
+              <a href="#calculateur">Estimez vos revenus</a>
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              asChild
+              variant="ghost"
+              size="lg"
+              className="px-8 py-6 text-base hover:bg-secondary transition-all duration-300"
+            >
               <a href="#services">{t.hero.cta2}</a>
             </Button>
           </motion.div>

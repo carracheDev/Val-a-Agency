@@ -77,10 +77,24 @@ export function Navigation() {
             <motion.a
               key={link.href}
               href={link.href}
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById(link.href.replace("#", ""));
+                if (element) {
+                  const headerOffset = 80;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                  });
+                }
+              }}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.4 }}
-              className={`relative px-3 py-2 text-sm transition-colors duration-200 ${
+              className={`relative px-3 py-2 text-sm transition-colors duration-200 cursor-pointer ${
                 activeSection === link.href.replace("#", "")
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -167,7 +181,21 @@ export function Navigation() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    const element = document.getElementById(link.href.replace("#", ""));
+                    if (element) {
+                      const headerOffset = 80;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                      });
+                    }
+                  }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05, duration: 0.3 }}
