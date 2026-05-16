@@ -14,7 +14,7 @@ interface FormState {
 
 type Status = "idle" | "loading" | "success" | "error";
 
-const formspreeEndpoint = "https://formspree.io/f/mlgzydyp";
+const formspreeEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
 export function ContactSection() {
   const [form, setForm] = useState<FormState>({
@@ -38,6 +38,12 @@ export function ContactSection() {
     if (!form.email.includes("@")) {
       setStatus("error");
       setErrorMessage("Veuillez entrer une adresse email valide.");
+      return;
+    }
+
+    if (!formspreeEndpoint) {
+      setStatus("error");
+      setErrorMessage("Le formulaire de contact n'est pas configuré.");
       return;
     }
 
